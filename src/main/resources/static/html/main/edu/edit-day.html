@@ -1,0 +1,42 @@
+<!DOCTYPE doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <script src="/js/function.js"></script>
+</head>
+<body>
+<div style="margin-left:20px;width: 330px">
+    <form class="layui-form" lay-filter="viewForm">
+        <div class="layui-form-item">
+            <input type="radio" name="day" value="1" title="周一">
+            <input type="radio" name="day" value="2" title="周二">
+            <input type="radio" name="day" value="3" title="周三">
+            <input type="radio" name="day" value="4" title="周四">
+            <input type="radio" name="day" value="5" title="周五">
+            <input type="radio" name="day" value="6" title="周六">
+            <input type="radio" name="day" value="7" title="周日">
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        var weekday = parent.window.weekday;
+        parent.window.childData = weekday;
+        layui.use('form', function () {
+            var form = layui.form;
+            form.val("viewForm", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                "day": weekday + ""
+            });
+            //每次对checkbox的点击都会触发这个函数
+            form.on("radio", function (data) {
+                parent.window.childData = data.value;
+            });
+        });
+    });
+</script>

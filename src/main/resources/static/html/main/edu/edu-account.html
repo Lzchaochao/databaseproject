@@ -1,0 +1,64 @@
+<!DOCTYPE doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <script src="/js/function.js"></script>
+</head>
+<body style="margin: 20px">
+<form class="layui-form">
+    <div class="layui-form-item">
+        <input type="text" name="account" required lay-verify="required" placeholder="请输入学号" autocomplete="off"
+               class="layui-input">
+    </div>
+    <div class="layui-form-item">
+        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码"
+               autocomplete="off" class="layui-input">
+    </div>
+    <div class="layui-form-item">
+        <button class="layui-btn" lay-submit lay-filter="save" style="margin-left: 50px">保存</button>
+        <button class="layui-btn layui-btn-primary" id="cancel">取消</button>
+    </div>
+</form>
+</body>
+<script>
+    $(document).ready(function () {
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        layui.use('form', function () {
+            var form = layui.form;
+            //监听提交
+            form.on('submit(save)', function (data) {
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: "/edu/account",
+                    data: {
+                        account: data.field.account,
+                        password: data.field.password
+                    },
+                    dataType: "json", //回调函数接收数据的数据格式
+                    success: function (msg) {
+                        if (msg.code === 1) {
+                            parent.layer.msg("保存成功");
+                            parent.layer.close(index);
+                        } else {
+                            parent.layer.msg(msg.msg);
+                        }
+                    },
+                    error: function (msg) {
+                        layer.msg('未知错误');
+                    }
+                });
+                return false;
+            });
+        });
+
+        $("#cancel").click(function (data) {
+            parent.layer.close(index);
+        })
+    });
+</script>

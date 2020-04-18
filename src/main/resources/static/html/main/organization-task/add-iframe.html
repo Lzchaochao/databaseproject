@@ -1,0 +1,55 @@
+<!DOCTYPE doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <script src="/js/function.js"></script>
+    <script src="/js/main/organization-task/add-iframe.js"></script>
+</head>
+
+<body style="margin: 20px">
+<div>
+    <form class="layui-form layui-form-pane" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">事件标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入事件标题" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">截止时间</label>
+            <div class="layui-inline">
+                <!-- 注意：这一层元素并不是必须的 -->
+                <input type="text" class="layui-input" id="dateinput" autocomplete="off" required lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">发布组织</label>
+            <div class="layui-input-block">
+                <select id="organization" name="org" lay-search lay-verify="required">
+                    <option value="">请选择发布的组织</option>
+                    <option v-for="item in items" :value=" item.organizationId ">{{ item.organizationName }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">详细描述</label>
+            <div class="layui-input-block">
+                <textarea name="desc" placeholder="请输入详细描述" lay-verify="required" required class="layui-textarea"
+                          style="height: 160px;"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="add">新建</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>

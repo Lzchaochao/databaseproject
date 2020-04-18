@@ -1,0 +1,74 @@
+<!--登录界面 不需要导航栏 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        DingDang-管理你的时间
+    </title>
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,700" rel="stylesheet">
+    <script src="/webjars/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <script src="/js/login/login.js"></script>
+    <link href="/css/login.css" rel="stylesheet"/>
+    <script src="/js/login/public.js"></script>
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md7">
+            <div class="left-logo">
+                DingDang
+            </div>
+            <p class="left-title">时间轴形式的个人&团队任务管理方案</p>
+            <br>
+            <a href="/doc" class="doc-href">说明文档</a>
+        </div>
+        <div class="layui-col-md5">
+            <div class="load-window">
+                <div style="width: 300px;margin: auto;margin-top:25px; ">
+                    <div style="margin-top: 5%;text-align: center;font-size: 35px;color: #393D49;">登录</div>
+                    <div style="margin: auto;margin-top: 25px;">
+                        <form class="layui-form" lay-filter="form">
+                            <div class="layui-form-item ">
+                                <div class="layui-input-block" style="margin:auto;">
+                                    <input type="text" name="user" required lay-verify="required" placeholder="邮箱"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="margin:auto;">
+                                    <input type="password" name="secret" required lay-verify="required" placeholder="密码"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="margin:auto;">
+                                    <input type="checkbox" name="remember" title="记住密码" lay-skin="primary">
+                                    <a href="/login/find" style="float: right;margin-top: 7px;">忘记密码</a>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="margin:auto;">
+                                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="login">登录</button>
+                                </div>
+                            </div>
+                            <div class="layui-input-block" style="font-size: 15px;">
+                                <a href="/login/register" style="float: right;">注册账号</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="foot" id="foot-tip">©2020 dingdang.info {{ tip }} <a
+        :href="href"> {{beian}}</a>
+</div>
+</body>
+</html>

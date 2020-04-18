@@ -1,0 +1,111 @@
+<!DOCTYPE doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <script src="/js/function.js"></script>
+</head>
+<body>
+<div style="margin:0 auto; margin-top: 60px; margin-bottom: 20px; width: 300px" id="searchForm">
+    <div class="layui-inline">
+        <input type="text" id="inviteCode" required placeholder="输入组织邀请码"
+               autocomplete="off" class="layui-input">
+    </div>
+    <button class="layui-btn" style="margin: 5px" id="searchOrg">查找</button>
+</div>
+<div style="margin:0 auto; width: 400px; margin-top: 20px" id="viewForm" hidden>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">组织名称</label>
+            <div class="layui-inline">
+                <input type="text" class="layui-input" disabled id="orgName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建者</label>
+            <div class="layui-inline">
+                <input type="text" class="layui-input" disabled id="owner">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">组织描述</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea" disabled id="desc"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="join">申请加入</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        var org;
+        layui.use('form', function () {
+            var form = layui.form;
+            form.on('submit(join)', function (data) {
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: "/org/person/join",
+                    data: {
+                        "orgId": org.organizationId
+                    },
+                    dataType: "json",
+                    success: function (reply) {
+                        if (reply.code == 1) {
+                            parent.layer.msg("成功发起申请，等待管理员同意");
+                        }
+                        else {
+                            parent.layer.msg(reply.msg);
+                        }
+                        parent.layer.close(index);//关闭窗口
+                    }, error: function (reply) {
+                        layer.msg("未知错误");
+                    }
+                });
+            });
+
+            $("#searchOrg").click(function () {
+                var code = $("#inviteCode").val();
+                if (code.length != 6) {
+                    layer.msg("请输入正确的邀请码");
+                    return;
+                }
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: "/org/person/search",
+                    data: {
+                        "code": code
+                    },
+                    dataType: "json",
+                    success: function (reply) {
+                        if (reply.code == 1) {
+                            org = reply.data[0];
+                            $("#orgName").val(org.organizationName);
+                            $("#owner").val(org.userName);
+                            $("#desc").val(org.description);
+                            $("#searchForm").hide();
+                            $("#viewForm").show();
+                        }
+                        else {
+                            layer.msg(reply.msg);
+                        }
+                    }, error: function (reply) {
+                        layer.msg("未知错误");
+                    }
+                });
+            });
+        });
+    });
+</script>

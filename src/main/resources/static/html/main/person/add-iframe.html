@@ -1,0 +1,92 @@
+<!DOCTYPE doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <script src="/js/function.js"></script>
+</head>
+
+<body style="margin: 20px">
+<div>
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">事件标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">截止时间</label>
+            <div class="layui-inline">
+                <!-- 注意：这一层元素并不是必须的 -->
+                <input type="text" class="layui-input" autocomplete="off" required id="dateinput">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">事件描述</label>
+            <div class="layui-input-block">
+                <textarea name="desc" placeholder="请输入详细描述" class="layui-textarea" style="height: 200px"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="addShortBtn">立即提交</button>
+                <button id="resetBtn" type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        layui.use(['form', 'laydate'], function () {
+            var form = layui.form;
+            var laydate = layui.laydate;
+            var selectDate = null;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#dateinput' //指定元素
+                , type: 'datetime'
+                , min: 'new Date()'
+                , format: 'yyyy/MM/dd HH:mm:ss'
+                , done: function (value, date) {
+                    //每次改变就将得到日期的值赋值给变量，如：2017/08/18
+                    selectDate = value;
+                }
+            });
+            //监听提交
+            form.on('submit(addShortBtn)', function (data) {
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: "/task/person/add",
+                    data: {
+                        "title": data.field.title,
+                        "date": selectDate,
+                        "description": data.field.desc
+                    },
+                    dataType: "json", //回调函数接收数据的数据格式
+                    success: function (reply) {
+                        if (reply.code === 1) {
+                            //清空输入
+                            parent.window.addDataFromIFrame(reply.data[0]);
+                            parent.layer.msg('添加成功', {shade: 0.3, time: 700});
+                            parent.layer.close(index);//关闭窗口
+                        } else {
+                            layer.msg(reply.msg);
+                        }
+                    },
+                    error: function (reply) {
+                        layer.msg(reply.msg);
+                    }
+                });
+                return false;
+            });
+        });
+    });
+</script>

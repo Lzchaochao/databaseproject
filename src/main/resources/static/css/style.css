@@ -1,0 +1,44 @@
+body {
+    background: #3dcdbc;
+    background: -moz-linear-gradient(left, #3dcdbc 0%, #009688 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, #3dcdbc), color-stop(100%, #009688));
+    background: -webkit-linear-gradient(left, #3dcdbc 0%, #33a1bd 100%);
+    background: -o-linear-gradient(left, #3dcdbc 0%, #009688 100%);
+    background: -ms-linear-gradient(left, #3dcdbc 0%, #009688 100%);
+    background: linear-gradient(to right, #3dcdbc 0%, #009688 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3dcdbc', endColorstr='#009688', GradientType=1);
+}
+
+.load-window {
+    margin: auto;
+    margin-top: 150px;
+    width: 370px;
+    height: 390px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid white;
+    background-color: white
+}
+
+.left-logo {
+    font-size: 60px;
+    margin-top: 130px;
+    color: white;
+    font-weight: 100;
+    font-family: "Raleway", Arial, sans-serif;
+}
+
+.left-title {
+    margin-top: 20px;
+    font-size: 20px;
+    color: white;
+    font-weight: 100;
+    font-family: "Raleway", Arial, sans-serif;
+}
+
+.doc-href {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #0202a2;
+    font-weight: 100;
+    font-family: "Raleway", Arial, sans-serif;
+}

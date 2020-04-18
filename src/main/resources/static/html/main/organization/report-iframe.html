@@ -1,0 +1,126 @@
+<!DOCTYPE doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <script src="/js/function.js"></script>
+</head>
+<body style="margin: 20px">
+<table class="layui-hide" id="table" lay-filter="option"></table>
+<script type="text/html" id="toolbarDemo"></script>
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" lay-skin="switch" lay-text="是|否" lay-filter="adminSelect" disabled
+           {{d.done ? 'checked':''}}>
+</script>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        var doCount = 0;
+        var undoCount = 0;
+        var tableData = getReport();
+
+        layui.use(['table', 'form', 'layer'], function () {
+            var table = layui.table;
+            var form = layui.form;
+            table.render({
+                id: 'dataTable',
+                elem: '#table',
+                toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+                , defaultToolbar: ['filter', 'exports', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                    title: '提示'
+                    , layEvent: 'toolTip'
+                    , icon: 'layui-icon-tips'
+                }],
+                parseData: function (res) {     //res 即为原始返回的数据
+                    return {
+                        "code": 1 - res.code,         //解析接口状态
+                        "msg": res.msg,             //解析提示文本
+                        "count": res.data.length,   //解析数据长度
+                        "data": res.data            //解析数据列表
+                    };
+                },
+                title: '组织任务完成情况',
+                cols: [
+                    [
+                        {type: 'numbers'},
+                        {
+                            field: 'title',
+                            title: '任务标题',
+                            sort: true,
+                            width: 150,
+                            align: "center",
+                            templet: function (d) {
+                                return '<div style="text-align:left">' + d.title + '</div>'
+                            }
+                        },
+                        {
+                            field: 'description',
+                            title: '任务描述',
+                            align: "center",
+                            templet: function (d) {
+                                return '<div style="text-align:left">' + d.description + '</div>'
+                            }
+                        },
+                        {field: 'createTime', title: '创建时间', sort: true, width: 170, align: "center"},
+                        {field: 'done', title: '是否完成', sort: true, templet: '#switchTpl', width: 110, align: "center"}
+                    ]
+                ],
+                limits: [10],
+                page: true,
+                height: "full",
+                data: tableData
+            });
+
+            table.on('toolbar(option)', function (obj) {
+                if (obj.event === 'toolTip') {
+                    var tipStr = '组织创建者才拥有任免管理员的权限';
+                    //头部提示按钮
+                    layer.alert(tipStr, {
+                        skin: 'layui-layer-molv' //样式类名
+                        , closeBtn: 0
+                    });
+                }
+            });
+        });
+
+        var titleTips = "应完成任务为" + (undoCount + doCount) + "，已完成" + doCount + "个，未完成" + undoCount + "个";
+        $("#toolbarDemo").html("<div class=\"layui-word-aux\">" + titleTips + "</div>");
+
+        //在此处从服务器获取该组织的成员列表
+        function getReport() {
+            var data;
+            $.ajax({
+                async: false,
+                type: "post",
+                url: "/org/admin/report",
+                data: {
+                    "orgId": parent.window.orgId,
+                    "userId": parent.window.userId
+                },
+                dataType: "json",
+                success: function (reply) {
+                    if (reply.code == 1) {
+                        data = reply.data;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].done) {
+                                doCount++;
+                            } else {
+                                undoCount++;
+                            }
+                        }
+                    }
+                    else {
+                        layer.msg(reply.msg);
+                    }
+                }, error: function (reply) {
+                    layer.msg("error");
+                }
+            });
+            return data;
+        }
+    });
+</script>

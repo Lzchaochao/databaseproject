@@ -1,0 +1,54 @@
+<!DOCTYPE doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <script src="/js/function.js"></script>
+    <script src="/js/main/person/update-iframe.js"></script>
+</head>
+
+<body style="margin: 20px">
+<div>
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">事件标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                       class="layui-input" id="title">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">截止时间</label>
+            <div class="layui-inline">
+                <input type="text" class="layui-input" required id="dateinput">
+            </div>
+        </div>
+        <div class="layui-form-item" id="doneCheck" pane>
+            <label class="layui-form-label">是否完成</label>
+            <div class="layui-input-block" v-if="checkStatu">
+                <input type="checkbox" name="done" lay-skin="switch" lay-text="是|否" checked>
+            </div>
+            <div class="layui-input-block" v-else>
+                <input type="checkbox" name="done" lay-skin="switch" lay-text="是|否">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">事件描述</label>
+            <div class="layui-input-block">
+                <textarea name="desc" placeholder="请输入详细描述" class="layui-textarea" id="description"
+                          style="height: 150px"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="updateShort">修改</button>
+                <button class="layui-btn layui-btn-primary" id="cancel">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

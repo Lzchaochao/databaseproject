@@ -1,0 +1,92 @@
+<!--找回密码界面，不需要导航栏-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        DingDang-管理你的时间
+    </title>
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,700" rel="stylesheet">
+    <script src="/js/login/find-back.js"></script>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="/css/login.css" rel="stylesheet"/>
+    <script src="/js/login/public.js"></script>
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md7">
+            <div class="left-logo">
+                DingDang
+            </div>
+            <p class="left-title">时间轴形式的个人&团队任务管理方案</p>
+            <br>
+            <a href="/doc" class="doc-href">说明文档</a>
+        </div>
+        <div class="layui-col-md5">
+            <div class="load-window">
+
+                <div style="width: 300px;margin: auto;margin-top:25px; ">
+                    <div style="font-size: 35px;color: #393D49;text-align: center;">找回密码</div>
+                    <div style="margin-right: auto;margin-left: auto;margin-top: 5%;">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="margin:auto;">
+                                    <input type="text" name="email" placeholder="请输入注册邮箱" required
+                                           lay-verify="required|email"
+                                           class="layui-input" lay-verType="tips" id="userEmail">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-inline" style="float: left;">
+                                    <input type="text" name="code" required lay-verify="required|verifyCode"
+                                           placeholder="验证码" autocomplete="off"
+                                           lay-verType="tips" class="layui-input ">
+
+                                </div>
+                                <div class="layui-form-mid layui-word-aux" style="float: right;">
+                                    <a href="javascript:;" id="getveritybutton">获取验证码</a>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="margin:auto;">
+                                    <input type="password" name="secret" placeholder="请输入新密码" required
+                                           lay-verify="required|pass"
+                                           class="layui-input" id="new-secret" lay-verType="tips">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="margin:auto;">
+                                    <input type="password" name="reSecret" placeholder="请确认新密码" required
+                                           lay-verify="required|reCheck" class="layui-input" id="new2-secret"
+                                           lay-verType="tips">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="margin:auto;">
+                                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="find-secret">提交
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="margin:auto;">
+                                    <div style="float: right;"><a href="/login/register">注册账号</a></div>
+                                    <div style="float: left;"><a href="/login/">登录账号</a></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="foot" id="foot-tip">©2020 dingdang.info {{ tip }} <a
+        :href="href"> {{beian}}</a>
+</div>
+</body>
+</html>

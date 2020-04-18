@@ -1,0 +1,102 @@
+<!DOCTYPE doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <script src="/js/function.js"></script>
+    <script src="/js/user/info.js"></script>
+</head>
+<style>
+    .item-padding {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+        margin-right: 20px
+    }
+
+    .edit-click {
+        font-size: 18px;
+        color: #828282;
+    }
+
+    .box-outside {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+        border: 1px solid white;
+    }
+</style>
+<body style="margin: 20px;">
+<div class="box-outside" style="margin: auto; margin-top: 100px; width: 500px; "
+     id="main">
+    <div class="item-padding">
+        <h2>
+            <i class="layui-icon layui-icon-username"></i>
+            用户昵称
+        </h2>
+        <div style="float: right">
+            <a href="#" id="name-edit" class="edit-click">编辑</a>
+        </div>
+        <div style="margin: 5px; color: #a2a2a2">
+            <h3>
+                {{ info.userName }}
+            </h3>
+        </div>
+    </div>
+    <hr>
+    <div class="item-padding">
+        <h2>
+            <i class="layui-icon layui-icon-vercode"></i>
+            注册邮箱
+        </h2>
+        <!--邮箱不可以修改啦-->
+        <!--<div style="float: right">-->
+        <!--<a href="#" id="mail-edit">修改</a>-->
+        <!--</div>-->
+        <div style="margin: 5px; color: #a2a2a2">
+            <h3>
+                {{ info.userMail }}
+            </h3>
+        </div>
+    </div>
+    <hr>
+    <div class="item-padding">
+        <h2>
+            <i class="layui-icon layui-icon-password"></i>
+            登录密码
+        </h2>
+        <div style="float: right">
+            <a href="#" id="password-edit" class="edit-click">修改</a>
+        </div>
+        <div style="margin: 5px; color: #a2a2a2">
+            <h3>
+                ********
+            </h3>
+        </div>
+    </div>
+    <hr>
+    <div class="item-padding">
+        <h2>
+            <i class="layui-icon layui-icon-login-wechat"></i>
+            微信账号
+        </h2>
+        <div style="float: right">
+            <a href="#" id="wechat-bind" v-if="info.wechat" class="edit-click">
+                解绑
+            </a>
+            <a href="#" id="wechat-unbind" v-else="info.wechat" class="edit-click">
+                绑定
+            </a>
+        </div>
+        <div style="margin: 5px; color: #a2a2a2">
+            <h3 v-if="info.wechat">
+                已绑定
+            </h3>
+            <h3 v-else>
+                未绑定
+            </h3>
+        </div>
+    </div>
+</div>
+</body>
