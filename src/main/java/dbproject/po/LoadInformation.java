@@ -4,16 +4,16 @@ package dbproject.po;
  * 这个类用来封装登录信息
  * 用户登录的时候有两个属性，isAdmin和userID
  */
-public class LoadInfomation {
+public class LoadInformation {
     private boolean isAmin;
     private int workNum;
 
-    public LoadInfomation() {
+    public LoadInformation() {
         isAmin = false;
         workNum = 0;
     }
 
-    public LoadInfomation(boolean isAmin, int workNum) {
+    public LoadInformation(boolean isAmin, int workNum) {
         this.isAmin = isAmin;
         this.workNum = workNum;
     }
@@ -36,7 +36,7 @@ public class LoadInfomation {
 
     @Override
     public String toString() {
-        return "LoadInfomation{" +
+        return "LoadInformation{" +
                 "isAmin=" + isAmin +
                 ", workNum=" + workNum +
                 '}';

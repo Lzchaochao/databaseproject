@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import dbproject.po.LoadInfomation;
+import dbproject.po.LoadInformation;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -52,8 +52,8 @@ public class TokenUtil {
      * 如果没有登录则返回o-false
      * 否则返回相应信息
      */
-    public LoadInfomation getLoadInfoFromCookies(HttpServletRequest request) {
-        LoadInfomation info = new LoadInfomation();
+    public LoadInformation getLoadInfoFromCookies(HttpServletRequest request) {
+        LoadInformation info = new LoadInformation();
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (NAME.equals(cookie.getName())) {

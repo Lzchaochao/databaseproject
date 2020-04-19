@@ -1,4 +1,4 @@
 package dbproject.controller;
 
-public class TestController {
+public class UserController {
 }

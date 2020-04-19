@@ -1,7 +1,7 @@
 package dbproject.controller;
 
 import dbproject.dao.LoginDao;
-import dbproject.po.LoadInfomation;
+import dbproject.po.LoadInformation;
 import dbproject.po.Reply;
 import dbproject.util.ReplyUtil;
 import dbproject.util.TokenUtil;
@@ -38,14 +38,19 @@ public class LoginController {
     @RequestMapping("/login")
     public Reply userLogin(HttpServletRequest request, HttpServletResponse response, String account, String psw) {
         //查询是不是普通用户
-        LoadInfomation info = loginDao.isUser(account, psw);
+        LoadInformation info = loginDao.isUser(account, psw);
         if (info != null) {
             info.setAmin(false);
             response.addCookie(tokenUtil.setTokenToCookie(info.getWorkNum(), info.isAmin()));
             return replyUtil.success();
         }
         //这里要检查是不是管理员
-
+        info = loginDao.isAdmin(account, psw);
+        if (info != null) {
+            info.setAmin(true);
+            response.addCookie(tokenUtil.setTokenToCookie(info.getWorkNum(), info.isAmin()));
+            return replyUtil.success();
+        }
         //如果都不是的话就提示密码错误
         return replyUtil.errorMessage("账户或密码错误");
     }

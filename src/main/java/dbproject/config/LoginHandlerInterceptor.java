@@ -1,6 +1,6 @@
 package dbproject.config;
 
-import dbproject.po.LoadInfomation;
+import dbproject.po.LoadInformation;
 import dbproject.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        LoadInfomation info = tokenUtil.getLoadInfoFromCookies(request);
+        LoadInformation info = tokenUtil.getLoadInfoFromCookies(request);
         String path = request.getRequestURI();
         String userUrl = "/user";
         String adminUrl = "/admin";
