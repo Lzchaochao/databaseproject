@@ -1,5 +1,6 @@
 package dbproject.config;
 
+import dbproject.po.LoadInfomation;
 import dbproject.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,30 +21,44 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     @Autowired
     TokenUtil tokenUtil;
 
+    /**
+     * 登录的时候先做权限跳转
+     * 首先判断有没有登录，没有的话跳转到登录接口
+     * 其次判断其是不是管理员，如果是管理员则跳转到管理员界面，否则跳转到普通用户界面
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        int userId = tokenUtil.getIdFromCookies(request);
+        LoadInfomation info = tokenUtil.getLoadInfoFromCookies(request);
         String path = request.getRequestURI();
+        String userUrl = "/user";
+        String adminUrl = "/admin";
         String loginUrl = "/login";
         String logoutUrl = "/login/logout";
-//        System.out.println(userId);
-//        System.out.println("path   -" + path + "-");
-//        System.out.println("logi   -" + loginUrl + "-");
-        //如果用户没有登录，只能访问登录相关接口
-        if (userId == 0) {
+
+        //判断有没有登录，没有登录的话就跳转到登录界面
+        if (info.getWorkNum() == 0) {
             if (path.startsWith(loginUrl)) {
                 return true;
             }
             response.sendRedirect("/login");
             return false;
         }
-        //如果用户登录了，访问的不是登录接口或访问的是登出接口则放行
-        if (!path.startsWith(loginUrl) || path.equals(logoutUrl)) {
-            return true;
+
+        //登录后将其导向正确的界面，即管理员界面或用户界面
+        if (path.startsWith(adminUrl)) {
+            if (info.isAmin()) {
+                return true;
+            } else {
+                response.sendRedirect(userUrl);
+            }
+        } else if (path.startsWith(userUrl)) {
+            if (info.isAmin()) {
+                response.sendRedirect(adminUrl);
+            } else {
+                return true;
+            }
         }
-        //如果用户登录了又要访问登录相关接口，则定向到用户模式
-        response.sendRedirect("/main");
-        return false;
+        return path.equals(logoutUrl);
     }
 
     @Override

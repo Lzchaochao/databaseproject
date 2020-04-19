@@ -3,7 +3,7 @@ spring:
     username: dbs
     password: database1234
     #                                                         GMT%2B8 表示GMT+8时区即东八区
-    url: jdbc:mysql://localhost:3306/dingdang?serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/companysalary?serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 2
