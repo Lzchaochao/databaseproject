@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--员工账户信息管理-->
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <link href="/webjars/layui/2.5.5/css/layui.css" rel="stylesheet"/>
+    <script src="/webjars/layui/2.5.5/layui.js"></script>
+    <script src="/js/function.js"></script>
+    <script src="/js/admin/staff-account.js"></script>
+</head>
+
+<body style="margin: 20px">
+
+<form class="layui-form">
+    <div class="layui-form-item layui-inline" style="margin-right: 20px">
+        <input class="layui-input" id="searchTitle" autocomplete="off" placeholder="搜索员工id或姓名">
+    </div>
+
+    <button class="layui-btn" id="addBtn" style="float: right">添加新员工</button>
+</form>
+
+<table class="layui-hide" id="table" lay-filter="option"></table>
+<script type="text/html" id="toolbarDemo"></script>
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" name="workState" value="{{d.litterId}}" lay-skin="switch" lay-text="是|否"
+           lay-filter="doneSelect" disabled
+           {{ d.workState ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="optionsbar">
+    <a lay-event="edit" class="layui-btn layui-btn-xs" }}>修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+</script>
+</body>

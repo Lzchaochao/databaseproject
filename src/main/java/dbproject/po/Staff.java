@@ -106,4 +106,21 @@ public class Staff {
     public void setWorkState(boolean workState) {
         this.workState = workState;
     }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "workNum='" + workNum + '\'' +
+                ", worksLevel=" + worksLevel +
+                ", workTypeId='" + workTypeId + '\'' +
+                ", workerFromWhere='" + workerFromWhere + '\'' +
+                ", workFromWhen=" + workFromWhen +
+                ", workPwd='" + workPwd + '\'' +
+                ", worksName='" + worksName + '\'' +
+                ", worksSex='" + worksSex + '\'' +
+                ", worksDepartmentId='" + worksDepartmentId + '\'' +
+                ", worksIdCard='" + worksIdCard + '\'' +
+                ", workState=" + workState +
+                '}';
+    }
 }

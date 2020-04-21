@@ -6,14 +6,14 @@ package dbproject.po;
  */
 public class LoadInformation {
     private boolean isAmin;
-    private int workNum;
+    private String workNum;
 
     public LoadInformation() {
         isAmin = false;
-        workNum = 0;
+        workNum = "";
     }
 
-    public LoadInformation(boolean isAmin, int workNum) {
+    public LoadInformation(boolean isAmin, String workNum) {
         this.isAmin = isAmin;
         this.workNum = workNum;
     }
@@ -26,12 +26,12 @@ public class LoadInformation {
         isAmin = amin;
     }
 
-    public int getWorkNum() {
-        return workNum;
+    public void setWorkNum(String workNum) {
+        this.workNum = workNum;
     }
 
-    public void setWorkNum(int workNum) {
-        this.workNum = workNum;
+    public String getWorkNum() {
+        return workNum;
     }
 
     @Override

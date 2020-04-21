@@ -22,7 +22,7 @@ $(document).ready(function () {
                 success: function (reply) {
                     if (reply.code === 1) {
                         rememberMe(data.field);
-                        window.location.href = '/main';
+                        window.location.href = '/admin';
                     } else {
                         layer.msg(reply.msg);
                     }

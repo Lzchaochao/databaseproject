@@ -24,7 +24,7 @@ public class TokenUtil {
     private Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
     private JWTVerifier verifier = JWT.require(algorithm).build();
 
-    public String createToken(int id, boolean isAdmin) {
+    public String createToken(String id, boolean isAdmin) {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Map<String, Object> header = new HashMap<>(2);
         header.put("alg", "HS256");
@@ -59,7 +59,7 @@ public class TokenUtil {
                 if (NAME.equals(cookie.getName())) {
                     try {
                         DecodedJWT jwt = verifier.verify(cookie.getValue());
-                        info.setWorkNum(jwt.getClaim("id").asInt());
+                        info.setWorkNum(jwt.getClaim("id").asString());
                         info.setAmin(jwt.getClaim("admin").asBoolean());
                         break;
                     } catch (Exception e) {
@@ -78,7 +78,7 @@ public class TokenUtil {
         response.addCookie(cookie);
     }
 
-    public Cookie setTokenToCookie(int id, boolean isAdmin) {
+    public Cookie setTokenToCookie(String id, boolean isAdmin) {
         Cookie cookie = new Cookie(NAME, createToken(id, isAdmin));
         cookie.setPath("/");
         cookie.setMaxAge(COOKIE_MAX_TIME);

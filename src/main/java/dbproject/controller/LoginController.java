@@ -31,21 +31,22 @@ public class LoginController {
      * 如果都不是那就说明账户密码错误
      *
      * @param account 登录账户
-     * @param psw     登录密码
+     * @param password     登录密码
      * @return 返回error表示账户密码错误，返回success表示登录成功
      */
     @ResponseBody
     @RequestMapping("/login")
-    public Reply userLogin(HttpServletRequest request, HttpServletResponse response, String account, String psw) {
+    public Reply userLogin(HttpServletRequest request, HttpServletResponse response, String account, String password) {
         //查询是不是普通用户
-        LoadInformation info = loginDao.isUser(account, psw);
+        LoadInformation info = loginDao.isUser(account, password);
         if (info != null) {
             info.setAmin(false);
             response.addCookie(tokenUtil.setTokenToCookie(info.getWorkNum(), info.isAmin()));
+            System.out.println(info);
             return replyUtil.success();
         }
         //这里要检查是不是管理员
-        info = loginDao.isAdmin(account, psw);
+        info = loginDao.isAdmin(account, password);
         if (info != null) {
             info.setAmin(true);
             response.addCookie(tokenUtil.setTokenToCookie(info.getWorkNum(), info.isAmin()));
@@ -54,7 +55,6 @@ public class LoginController {
         //如果都不是的话就提示密码错误
         return replyUtil.errorMessage("账户或密码错误");
     }
-
 
     /**
      * 用户退出登录接口

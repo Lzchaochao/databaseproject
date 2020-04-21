@@ -7,15 +7,15 @@ import java.util.Date;
  * 对应work_department_table表
  */
 public class Department {
-    private String worksDepartmentId;
+    private int worksDepartmentId;
     private String worksDepartmentName;
     private Date setUpDate;
 
-    public String getWorksDepartmentId() {
+    public int getWorksDepartmentId() {
         return worksDepartmentId;
     }
 
-    public void setWorksDepartmentId(String worksDepartmentId) {
+    public void setWorksDepartmentId(int worksDepartmentId) {
         this.worksDepartmentId = worksDepartmentId;
     }
 

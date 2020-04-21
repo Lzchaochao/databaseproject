@@ -36,7 +36,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         String logoutUrl = "/login/logout";
 
         //判断有没有登录，没有登录的话就跳转到登录界面
-        if (info.getWorkNum() == 0) {
+        if ("".equals(info.getWorkNum())) {
             if (path.startsWith(loginUrl)) {
                 return true;
             }
@@ -58,7 +58,13 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
-        return path.equals(logoutUrl);
+
+        if (path.equals(logoutUrl)) {
+            return true;
+        } else {
+            response.sendRedirect(adminUrl);
+        }
+        return false;
     }
 
     @Override
