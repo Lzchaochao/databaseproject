@@ -7,7 +7,7 @@ public class StaffDepartmentInformation {
     private int worksLevel;
     private String workKindName;
 
-    public  getWorkNum() {
+    public  int getWorkNum() {
         return workNum;
     }
 
@@ -53,7 +53,7 @@ public class StaffDepartmentInformation {
                 "workNum='" + String.valueOf(workNum) + '\'' +
                 ", worksName='" + worksName + '\'' +
                 ", worksDepartmentName='" + worksDepartmentName + '\'' +
-                ", worksLevel=" + worksLevel +
+                ", worksLevel=" + String.valueOf(worksLevel) +
                 ", workKindName='" + workKindName + '\'' +
                 '}';
     }

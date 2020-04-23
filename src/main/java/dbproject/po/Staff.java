@@ -7,7 +7,7 @@ import java.util.Date;
  * 对应数据库的work_basic_table
  */
 public class Staff {
-    private String workNum;
+    private int workNum;
     private int worksLevel;
     private String workTypeId;
     private String workerFromWhere;
@@ -15,15 +15,15 @@ public class Staff {
     private String workPwd;
     private String worksName;
     private String worksSex;
-    private String worksDepartmentId;
+    private int worksDepartmentId;
     private String worksIdCard;
     private boolean workState;
 
-    public String getWorkNum() {
+    public int getWorkNum() {
         return workNum;
     }
 
-    public void setWorkNum(String workNum) {
+    public void setWorkNum(int workNum) {
         this.workNum = workNum;
     }
 
@@ -83,11 +83,11 @@ public class Staff {
         this.worksSex = worksSex;
     }
 
-    public String getWorksDepartmentId() {
+    public int getWorksDepartmentId() {
         return worksDepartmentId;
     }
 
-    public void setWorksDepartmentId(String worksDepartmentId) {
+    public void setWorksDepartmentId(int worksDepartmentId) {
         this.worksDepartmentId = worksDepartmentId;
     }
 

@@ -3,6 +3,7 @@ package dbproject.controller.admin;
 import dbproject.dao.AdminDao;
 import dbproject.po.Reply;
 import dbproject.po.Staff;
+import dbproject.po.StaffDepartmentInformation;
 import dbproject.util.ReplyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,8 +51,8 @@ public class StaffController {
     @RequestMapping("/dpt")
     public Reply getAllStaffDepartment() {
 
-        List<Staff> list = new ArrayList<>();   //从数据库查出的list
-        list.add(new Staff());  //这里add是为了方便我测试而已
+        List<StaffDepartmentInformation> list = adminDao.getAllStaffDepartmentInformation();   //从数据库查出的list
+        //list.add(new StaffDepartmentInformation());  //这里add是为了方便我测试而已
         return replyUtil.success(list);
     }
 
@@ -63,8 +64,13 @@ public class StaffController {
      */
     @ResponseBody
     @RequestMapping("/remove")
-    public Reply updateStaffInformation(String workNum) {
+    public Reply updateStaffInformation(int workNum) {
         boolean done = true;
+        adminDao.deleteAttdneceInformation(workNum);
+        adminDao.deleteMonthSalaryInformation(workNum);
+        adminDao.deleteOneBasicStaffInformation(workNum);
+        adminDao.deleteOvertimeRecordInformation(workNum);
+        adminDao.deleteYearEndInformation(workNum);
         if (done) {
             return replyUtil.success();
         } else {
@@ -83,8 +89,10 @@ public class StaffController {
     @RequestMapping("/add")
     public Reply addStaff(Staff staff) {
         System.out.println(staff);
-
         boolean done = true;
+
+        done = adminDao.addOneStaffInformation(staff.getWorkNum(),staff.getWorkFromWhen(),staff.getWorkerFromWhere(),staff.getWorkPwd(),staff.getWorksDepartmentId(),staff.getWorksIdCard(),staff.getWorksLevel(),staff.getWorksName(),staff.getWorksSex(),staff.getWorkTypeId(),staff.isWorkState());
+
         if (done) {
             return replyUtil.success();
         } else {
