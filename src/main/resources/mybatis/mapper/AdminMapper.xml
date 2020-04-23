@@ -63,7 +63,7 @@
     <!--添加员工-->
     <select id="addOneStaffInformation"  resultType="Boolean">
         INSERT INTO work_basic_table
-        (work_num,work_from_when,worker_from_where,work_pwd,works_department_id,works_id_card,works_level,works_name,works_sex,work_type_id,work_state) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #param10, #{param11});
+        (work_from_when,worker_from_where,work_pwd,works_department_id,works_id_card,works_level,works_name,works_sex,work_type_id,work_state) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #param10, #{param11});
 
     </select>
 
