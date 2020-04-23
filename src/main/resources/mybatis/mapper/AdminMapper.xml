@@ -3,15 +3,69 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dbproject.dao.AdminDao">
-    <select id="getAllStaffInformation" resultType="Staff">
+
+    <!--返回员工基本信息-->
+    <select id="getAllStaffInformation" resultType="dbproject.po.Staff">
         select work_num,
+               works_level,
                works_name,
-               work_pwd,
-               works_sex,
-               works_id_card,
-               work_state,
+               work_type_id,
                worker_from_where,
-               work_from_when
+               work_from_when,
+               work_pwd,
+               works_name,
+               works_sex,
+               works_department_id,
+               works_id_card,
+               work_state
         from work_basic_table
     </select>
+
+    <!--返回员工的工号部门名称工作类型等信息-->
+    <select id="getAllStaffDepartmentInformation" resultType="dbproject.po.StaffDepartmentInformation">
+        select         work_num,
+                       works_name,
+                       works_department_name,
+                       works_level,
+                       work_kind_name
+        from work_basic_table natural join work_department_table natural join work_kinds_table
+
+    </select>
+
+    <!--根据工号删除员工表记录一条-->
+    <select id="deleteOneBasicStaffInformation" parameterType="int" resultType="Boolean">
+        DELETE FROM work_basic_table
+        WHERE (`work_num` =  #{workNum});
+
+    </select>
+    <!--根据工号删除考情表内容-->
+    <select id="deleteAttdneceInformation" parameterType="int" resultType="Boolean">
+        DELETE FROM check_work_attendance_table
+        WHERE (`work_num` =   #{workNum});
+    </select>
+    <!--根据工号删除月工资表内容-->
+    <select id="deleteMonthSalaryInformation" parameterType="int" resultType="Boolean">
+        DELETE FROM work_month_salary_table
+        WHERE (`work_num` =   #{workNum});
+
+    </select>
+    <!--根据工号删除加班表内容-->
+    <select id="deleteOvertimeRecordInformation" parameterType="int" resultType="Boolean">
+        DELETE FROM work_overtime_record_table
+        WHERE (`work_num` =   #{workNum});
+
+    </select>
+    <!--根据工号删除年终奖表内容-->
+    <select id="deleteYearEndInformation" parameterType="int" resultType="Boolean">
+        DELETE FROM year_end_bonus_table
+        WHERE (`work_num` =   #{workNum});
+    </select>
+    <!--添加员工-->
+    <select id="addOneStaffInformation"  resultType="Boolean">
+        INSERT INTO work_basic_table
+        (work_num,work_from_when,worker_from_where,work_pwd,works_department_id,works_id_card,works_level,works_name,works_sex,work_type_id,work_state) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #param10, #{param11});
+
+    </select>
+
+
 </mapper>
